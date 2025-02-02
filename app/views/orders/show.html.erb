@@ -1,0 +1,26 @@
+<h2>Order Confirmation</h2>
+<p>Thank you for your order! Your order ID is <strong>#<%= @order.id %></strong>.</p>
+
+<h3>Order Details</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td>$<%= item.price %></td>
+        <td>$<%= item.price * item.quantity %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Total Amount: $<%= @order.order_items.sum { |i| i.price * i.quantity } %></h3>

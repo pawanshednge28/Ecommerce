@@ -1,0 +1,35 @@
+<h2 class="fw-bold text-dark mb-4">All Products</h2>
+
+<% if current_user.seller? %>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-dark mb-0">Your Product Listings</h2>
+    <div class="ms-auto"> <!-- ✅ This moves the button to the right -->
+      <%= link_to "Add New Product", new_product_path, class: "btn btn-primary fw-bold shadow-sm px-4" %>
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <% @products.each do |product| %>
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <% if product.image.attached? %>
+          <%= image_tag product.image, class: "card-img-top", style: "height: 200px; object-fit: cover;" %>
+        <% else %>
+          <img src="https://via.placeholder.com/200" class="card-img-top" alt="No Image">
+        <% end %>
+
+        <div class="card-body">
+          <h5 class="card-title"><%= product.name %></h5>
+          <p class="card-text"><%= product.description.to_s.truncate(50) %></p>
+          <h6 class="card-text text-success">₹<%= product.price %></h6>
+
+          <div class="d-grid gap-2">
+            <%= link_to "View Product", product_path(product), class: "btn btn-primary btn-sm" %>
+            <%= button_to "Add to Cart", cart_items_path(product_id: product.id), method: :post, class: "btn btn-warning btn-sm" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

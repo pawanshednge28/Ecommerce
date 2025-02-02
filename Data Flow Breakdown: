@@ -1,0 +1,75 @@
+Data Flow Breakdown:
+User Flow:
+
+A User signs up and logs in.
+If the user is a Seller, they can create Products.
+If the user is a Buyer, they can browse products, add them to the Cart, and place Orders.
+Cart & Checkout Flow:
+
+The Buyer adds Products to the Cart (which has multiple CartItems).
+The user proceeds to checkout, and a new Order is created.
+Each CartItem is converted into an OrderItem, and the cart is cleared.
+Order Processing:
+
+The Order status updates as the purchase progresses (e.g., Pending → Shipped → Delivered).
+Sellers can view orders related to their products.
+
+
+            +--------------------+
+            |    User (Buyer)    |
+            +--------------------+
+                      |
+                      | 1. Browses Products
+                      v
+            +--------------------+
+            |    Product List    |
+            +--------------------+
+                      |
+                      | 2. Adds Product to Cart
+                      v
+            +--------------------+
+            |       Cart         |
+            +--------------------+
+                      |
+                      | 3. Proceeds to Checkout
+                      v
+            +--------------------+
+            |       Order        |
+            +--------------------+
+                      |
+                      | 4. Order Processed & Status Updated
+                      v
+            +--------------------+
+            |    Seller Panel    |
+            +--------------------+
+
+
+Entities & Relationships
+User
+
+Can be a Buyer or Seller.
+Has many Orders.
+Has one Cart.
+Product
+
+Belongs to a Seller (User).
+Can exist in multiple CartItems.
+Can be part of multiple OrderItems.
+Cart
+
+Belongs to a User.
+Has many CartItems.
+CartItem
+
+Belongs to a Cart.
+References a Product.
+Stores Quantity.
+Order
+
+Belongs to a User.
+Has many OrderItems.
+OrderItem
+
+Belongs to an Order.
+References a Product.
+Stores Quantity and Price.

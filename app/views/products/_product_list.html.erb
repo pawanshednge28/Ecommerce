@@ -1,0 +1,20 @@
+<% @products ||= [] %>  <!-- Ensures @products is not nil -->
+
+<% if @products.any? %>
+  <div class="product-list">
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <h3><%= link_to product.name, product_path(product) %></h3>
+        <% if product.image.attached? %>
+            <%= image_tag product.image, width: 50, height: 50 %>
+        <% end %>
+        <p><%= product.description.to_s.truncate(100) %></p>
+        <p><strong>Price:</strong> ₹<%= product.price %></p>
+        <p><strong>Seller:</strong> <%= product.seller.email %></p>
+        <%= link_to "View Product", product_path(product), class: "btn btn-sm btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>No products available at the moment.</p>
+<% end %>
