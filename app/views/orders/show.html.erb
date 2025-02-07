@@ -24,3 +24,4 @@
 </table>
 
 <h3>Total Amount: $<%= @order.order_items.sum { |i| i.price * i.quantity } %></h3>
+      <%= link_to "Back to Products", products_path, class: "btn btn-primary px-4" %>

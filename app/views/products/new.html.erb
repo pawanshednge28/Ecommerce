@@ -1,26 +1,34 @@
-<h1>List a New Product</h1>
-<%= form_for @product do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
+<div class="container mt-5">
+  <h2 class="fw-bold text-dark mb-4">List a New Product</h2>
 
-  <div>
-    <%= f.label :price %>
-    <%= f.number_field :price, step: 0.01 %>
-  </div>
+  <div class="card shadow p-4">
+    <%= form_for @product, html: { multipart: true } do |f| %>
+      
+      <div class="mb-3">
+        <%= f.label :name, class: "form-label fw-bold" %>
+        <%= f.text_field :name, class: "form-control", placeholder: "Enter product name" %>
+      </div>
 
-  <div>
-    <%= f.label :image %>
-    <%= f.file_field :image %>
-  </div>
+      <div class="mb-3">
+        <%= f.label :description, class: "form-label fw-bold" %>
+        <%= f.text_area :description, class: "form-control", rows: 4, placeholder: "Enter product description" %>
+      </div>
 
-  <div>
-    <%= f.submit "List Product" %>
+      <div class="mb-3">
+        <%= f.label :price, class: "form-label fw-bold" %>
+        <%= f.number_field :price, step: 0.01, class: "form-control", placeholder: "Enter price" %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :image, class: "form-label fw-bold" %>
+        <%= f.file_field :image, class: "form-control" %>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <%= link_to "Back to Products", products_path, class: "btn btn-secondary px-4" %>
+        <%= f.submit "List Product", class: "btn btn-primary px-4 fw-bold" %>
+      </div>
+
+    <% end %>
   </div>
-<% end %>
+</div>

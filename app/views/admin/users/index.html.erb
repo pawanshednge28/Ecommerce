@@ -1,0 +1,29 @@
+<h2 class="fw-bold text-dark mb-4">Manage Users</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role.capitalize %></td>
+        <td>
+          <% if user.seller? %>
+            <%= button_to "Reject Seller", admin_user_path(user, role: "buyer"), method: :patch, class: "btn btn-warning btn-sm" %>
+          <% elsif user.buyer? %>
+            <%= button_to "Approve as Seller", admin_user_path(user, role: "seller"), method: :patch, class: "btn btn-success btn-sm" %>
+          <% end %>
+          <%= button_to "Delete", admin_user_path(user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

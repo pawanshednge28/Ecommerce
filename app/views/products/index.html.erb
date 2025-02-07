@@ -1,6 +1,6 @@
 <h2 class="fw-bold text-dark mb-4">All Products</h2>
 
-<% if current_user.seller? %>
+<% if current_user&.seller? %>
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold text-dark mb-0">Your Product Listings</h2>
     <%= link_to "Add New Product", new_product_path, class: "btn btn-primary fw-bold shadow-sm" %>
@@ -24,7 +24,9 @@
 
           <div class="d-grid gap-2">
             <%= link_to "View Product", product_path(product), class: "btn btn-primary btn-sm" %>
-            <%= button_to "Add to Cart", cart_items_path(product_id: product.id), method: :post, class: "btn btn-warning btn-sm" %>
+            <% if current_user.role.in?(%w[buyer seller]) %>
+              <%= button_to "Add to Cart", cart_items_path(product_id: product.id), method: :post, class: "btn btn-warning btn-sm" %> 
+            <%end%>
           </div>
         </div>
       </div>

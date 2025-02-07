@@ -1,0 +1,29 @@
+<h2 class="fw-bold text-dark mb-4">Manage Products</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Seller</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td><%= product.seller.email %></td>
+        <td>₹<%= product.price %></td>
+        <td>
+		  <%= link_to "Approve", admin_product_path(product, approved: "true"), method: :patch, class: "btn btn-success btn-sm" %>
+		  <%= link_to "Reject", admin_product_path(product, approved: "false"), method: :patch, class: "btn btn-warning btn-sm" %>
+          <%= link_to "Delete", admin_product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

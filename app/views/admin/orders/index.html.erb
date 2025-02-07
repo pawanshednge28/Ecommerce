@@ -1,0 +1,33 @@
+<h2 class="fw-bold text-dark mb-4">Manage Orders</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Buyer</th>
+      <th>Total Items</th>
+      <th>Total Price</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.user.email %></td>
+        <td><%= order.order_items.sum(:quantity) %></td>
+        <td>₹<%= order.order_items.sum { |item| item.quantity * item.price } %></td>
+        <td><%= order.status.capitalize %></td>
+        <td>
+          <% if order.status == "pending" %>
+            <%= link_to "Mark as Shipped", admin_order_path(order, status: "shipped"), method: :patch, class: "btn btn-primary btn-sm" %>
+          <% elsif order.status == "shipped" %>
+            <%= link_to "Mark as Delivered", admin_order_path(order, status: "delivered"), method: :patch, class: "btn btn-success btn-sm" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
